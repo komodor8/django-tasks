@@ -1,0 +1,23 @@
+{% extends "project.html" %}
+
+{% load static %}
+
+{% block body_block %}
+
+
+    <code>{{ latest_question_list }}</code>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+    {% if latest_question_list %}
+        <h2>Liste des questions</h2>
+        <title></title>
+        <ul>
+        {% for question in latest_question_list %}
+            <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+
+{% endblock %}

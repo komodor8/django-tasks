@@ -1,0 +1,5 @@
+# all static files
+**/static/bootsrap/
+**/static/images/
+
+db.sqlite3

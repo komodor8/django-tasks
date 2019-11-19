@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    {% load static %}
+     <!-- Latest compiled and minified CSS -->
+    <link
+        rel="stylesheet"
+        href="{% static "bootstrap/css/bootstrap.min.css" %}">
+    <link
+        rel="stylesheet"
+        href="{% static "bootstrap/css/bootstrap-responsive.min.css" %}">
+
+    <!-- compiled JavaScript -->
+    <script type="text/javascript" src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="/">Home</a>
+            <ul class="nav">
+                <li>
+                    <a href="{% url 'polls:index' %}">polls</a>
+                </li>
+                <li>
+                    <a href="{% url 'tasks:index' %}">tasks</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+
+        {% block body_block %}
+
+        {% endblock %}
+    </div>
+
+
+</body>
+</html>
