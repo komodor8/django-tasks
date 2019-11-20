@@ -4,9 +4,23 @@
 {% block body_block %}
 
 <form method="post">
+    {% if not form.instance.pk %}
+        <h1>Create a Task</h1>
+    {% else %}
+         <h1>Update a Task</h1>
+    {% endif %}
+
     {% csrf_token %}
+
     {{ form }}
-    <button type="submit">submit</button>
+
+    <div>
+        {% if not form.instance.pk %}
+            <button type="submit">create this task</button>
+        {% else %}
+             <button type="submit">update this task</button>
+        {% endif %}
+    </div>
 
 </form>
 

@@ -3,23 +3,26 @@
 
 {% block body_block %}
 
-    <div>Liste des taches</div>
-    <ul>
-        {% for t in tasks %}
-            <li>
-            	<a href="/tasks/{{t.id}}">{{ t }}</a>
-                <div>
-                    <button
-                        onclick="window.location.href='/tasks/delete/{{t.id}}'"
-                        class="btn btn-danger"
-                    >
-                        delete
-                    </button>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
+    <h1>Liste des taches</h1>
 
-    <a href="{% url 'tasks:create' %}">Go to Create a Task</a>
+        {% for t in tasks %}
+
+            <div style="margin-bottom: 20px">
+            	<div>
+                    task name:
+                </div>
+                <a href="/tasks/{{t.id}}">{{ t }}</a>
+                <button
+                    onclick="window.location.href='/tasks/delete/{{t.id}}'"
+                    class="btn btn-danger"
+                >
+                    delete
+                </button>
+            </div>
+
+        {% endfor %}
+
+
+    <a href="{% url 'tasks:create' %}">Create a new task</a>
 
 {% endblock %}

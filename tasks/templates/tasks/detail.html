@@ -3,14 +3,41 @@
 
 {% block body_block %}
 
-    <div>Task number: {{task.task_description}}</div>
-
-    <div class="container">
-
-    	<p>
-    		<a href="{% url 'tasks:update' pk=task.pk %}">update</a>
-    	</p>
+    <div>Task number:
+    	<h6>{{task.pk}}
+    	</h6>
     </div>
+
+    <div>Task task name:
+    	<h6>{{task.task_name}}
+    	</h6>
+    </div>
+
+    <div>Task description:
+    	<h6>{{task.task_description}}
+    	</h6>
+    </div>
+
+    <div>Task date:
+    	<h6>{{task.task_is_done}}
+    	</h6>
+    </div>
+
+    <div>Task published:
+    	<h6>{{task.task_due_date}}
+    	</h6>
+    </div>
+
+    <div>Task done:
+    	<h6>{{task.pub_date}}
+    	</h6>
+    </div>
+
+	<p>
+		<button class="btn">
+			<a href="{% url 'tasks:update' pk=task.pk %}">update task {{task.pk}}</a>
+		</button>
+	</p>
 
 
 {% endblock %}
