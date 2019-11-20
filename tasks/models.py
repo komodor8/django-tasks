@@ -1,7 +1,13 @@
 from django.db import models
-from django.forms import ModelForm
+from django.forms import DateTimeField, ModelForm
+from django.urls import reverse
+from django.forms.widgets import DateInput
 
 # Create your models here.
+
+
+class DateInput(DateInput):
+    input_type = 'date'
 
 
 class Task(models.Model):
@@ -14,8 +20,19 @@ class Task(models.Model):
     def __str__(self):
         return self.task_name
 
+    def get_absolute_url(self):
+        return reverse('tasks:detail', args=[str(self.id)])
+
 
 class TaskForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["task_name"].widget.attrs['class'] = 'bg-red'
+
+    task_due_date = DateTimeField(widget=DateInput)
+    pub_date = DateTimeField(widget=DateInput)
+
     class Meta:
         model = Task
         fields = [
