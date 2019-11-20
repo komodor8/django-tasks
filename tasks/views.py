@@ -1,10 +1,7 @@
 from django.shortcuts import redirect, render
-from django.views.generic import TemplateView
+from django.views.generic import CreateView, TemplateView, UpdateView
 from .models import Task, TaskForm
-from . import forms
-from django.http import HttpResponse
-import web_pdb
-from django.views.generic.detail import DetailView, SingleObjectMixin
+from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView
 
@@ -32,16 +29,14 @@ class DetailView(DetailView):
         return context
 
 
-class CreateView(TemplateView):
-    template_name = 'tasks/create.html'
+class CreateView(CreateView):
+    form_class = TaskForm
     model = Task
 
 
-def store(request):
-    newTask = Task()
-    f = TaskForm(request.POST, instance=newTask)
-    f.save()
-    return redirect('/tasks', permanent=True)
+class UpdateView(UpdateView):
+    form_class = TaskForm
+    model = Task
 
 
 class TaskDeleteView(DeleteView):

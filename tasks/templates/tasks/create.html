@@ -2,32 +2,7 @@
 
 
 {% block body_block %}
-    <h1>Create a Task</h1>
-
-    <form action="/tasks/store/" method="post">
-        {% csrf_token %}
-        <div>
-            <label for="task_name">task name</label>
-            <input type="text" name="task_name">
-        </div>
-        <div>
-            <label for="task_description">task description</label>
-            <input type="text" name="task_description">
-        </div>
-        <div>
-            <label for="task_is_done">task is done</label>
-            <input type="checkbox" name="task_is_done">
-        </div>
-        <div>
-            <label for="task_due_date">task due date</label>
-            <input type="date" name="task_due_date">
-        </div>
-        <div>
-            <label for="pub_date">pub date</label>
-            <input type="date" name="pub_date">
-        </div>
-        <button type="submit">submit</button>
-    </form>
+    {{ form }}
 
 
 {% endblock %}

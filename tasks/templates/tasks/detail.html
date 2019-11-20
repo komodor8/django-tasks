@@ -5,5 +5,12 @@
 
     <div>Task number: {{task.task_description}}</div>
 
+    <div class="container">
+
+    	<p>
+    		<a href="{% url 'tasks:update' pk=task.pk %}">update</a>
+    	</p>
+    </div>
+
 
 {% endblock %}
