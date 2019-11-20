@@ -8,10 +8,14 @@
         {% for t in tasks %}
             <li>
             	<a href="/tasks/{{t.id}}">{{ t }}</a>
-            	<form action="/tasks/delete/{{t.id}}" method="post">
-            		{% csrf_token %}
-					<button type="submit">detelet test</button>
-            	</form>
+                <div>
+                    <button
+                        onclick="window.location.href='/tasks/delete/{{t.id}}'"
+                        class="btn btn-danger"
+                    >
+                        delete
+                    </button>
+                </div>
             </li>
         {% endfor %}
     </ul>
