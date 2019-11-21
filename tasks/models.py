@@ -3,6 +3,7 @@ from django.forms import DateTimeField, ModelForm
 from django.urls import reverse
 from django.forms.widgets import DateInput
 
+
 # Create your models here.
 
 
@@ -41,4 +42,20 @@ class TaskForm(ModelForm):
             'task_is_done',
             'task_due_date',
             'pub_date'
+        ]
+
+
+class Comment(models.Model):
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=250)
+    task = models.ForeignKey('Task', on_delete=models.CASCADE)
+
+
+class CommentForm(ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = [
+            'title',
+            'description'
         ]
