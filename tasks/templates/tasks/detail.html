@@ -39,6 +39,15 @@
 		</button>
 	</p>
 
+    <h2>Add a comment</h2>
+    <form action="{% url 'tasks:create-comment' task=task.pk %}"  method="post">
+        {% csrf_token %}
+
+        {{ comment_form }}
+
+        <input type="submit" value="add">
+    </form>
+
     <div>
         <div>
             {% for c in task.comment_set.all %}
@@ -51,14 +60,7 @@
         </div>
 
 
-        <h2>Add a comment</h2>
-        <form method="post">
-            {% csrf_token %}
 
-            {{ comment_form }}
-
-            <input type="submit" value="add">
-        </form>
     </div>
 
 

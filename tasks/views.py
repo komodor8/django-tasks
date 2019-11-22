@@ -21,7 +21,7 @@ class IndexView(TemplateView):
         return context
 
 
-class DetailView(DetailView):
+class TaskDetailView(DetailView):
     template_name = 'tasks/detail.html'
     model = Task
 
@@ -36,26 +36,15 @@ class DetailView(DetailView):
 class CreateCommentView(ModelFormMixin, FormView):
     template_name = 'tasks/detail.html'
     form_class = CommentForm
-    model = Task
+    model = Comment
 
-    def get_form_kwargs(self):
-        o = super().get_form_kwargs()
-        o['instance'] = Comment(task = self.get_object())
-        return o
+    def form_valid(self, form):
+        form.instance.task_id = self.kwargs['task']
+        return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('tasks:detail', kwargs={'pk': self.get_object().pk})
-
-
-class TaskDetailView(View):
-
-    def get(self, request, *args, **kwargs):
-        view = DetailView.as_view()
-        return view(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        view = CreateCommentView.as_view()
-        return view(request, *args, **kwargs)
+        task_id = self.kwargs['task']
+        return str(reverse_lazy('tasks:detail', kwargs={'pk': task_id}))
 
 
 class CreateView(CreateView):
