@@ -3,5 +3,7 @@
 **/static/images/
 
 **/__pycache__/
+**/tasks/__pycache__/
+
 
 db.sqlite3
