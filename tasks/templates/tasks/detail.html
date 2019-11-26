@@ -3,66 +3,156 @@
 
 {% block body_block %}
 
-    <div>Task number:
-    	<h6>{{task.pk}}
-    	</h6>
+    <div style="margin-bottom: 50px">
+        <h1>{{task.task_name}}</h1>
+        <div>Task number:
+            <h6>{{task.pk}}</h6>
+        </div>
+
+        <div>Task name:
+            <h6>{{task.task_name}}</h6>
+        </div>
+
+        <div>Task description:
+            <h6>{{task.task_description}}</h6>
+        </div>
+
+        <div>Task date:
+            <h6>{{task.task_is_done}}</h6>
+        </div>
+
+        <div>Task published:
+            <h6>{{task.task_due_date}}</h6>
+        </div>
+
+        <div>Task done:
+            <h6>{{task.task_is_done}}</h6>
+        </div>
+
+        <form action="{% url 'tasks:update' pk=task.pk %}">
+            <button
+                class="btn btn-primary"
+                type="submit"
+            >
+                update task {{task.pk}}
+            </button>
+
+        </form>
+
     </div>
-
-    <div>Task task name:
-    	<h6>{{task.task_name}}
-    	</h6>
-    </div>
-
-    <div>Task description:
-    	<h6>{{task.task_description}}
-    	</h6>
-    </div>
-
-    <div>Task date:
-    	<h6>{{task.task_is_done}}
-    	</h6>
-    </div>
-
-    <div>Task published:
-    	<h6>{{task.task_due_date}}
-    	</h6>
-    </div>
-
-    <div>Task done:
-    	<h6>{{task.pub_date}}
-    	</h6>
-    </div>
-
-	<p>
-		<button class="btn">
-			<a href="{% url 'tasks:update' pk=task.pk %}">update task {{task.pk}}</a>
-		</button>
-	</p>
-
-    <h2>Add a comment</h2>
-    <form action="{% url 'tasks:create-comment' task=task.pk %}"  method="post">
-        {% csrf_token %}
-
-        {{ comment_form }}
-
-        <input type="submit" value="add">
-    </form>
 
     <div>
+        <h2>Comments</h2>
+        <h3>Add a comment</h3>
+
+        <form action="{% url 'tasks:comments-create' task=task.pk %}"  method="post">
+            {% csrf_token %}
+
+            {{ comment_form }}
+
+            <div>
+                <button class="btn btn-primary" type="submit">
+                    add comment
+                </button>
+            </div>
+
+        </form>
+
         <div>
+            <h4>List of comments</h4>
+
             {% for c in task.comment_set.all %}
+                <div id="comment_{{ c.id }}" class="well">
+                    <h5>Title: {{ c.title }}</h5>
+                    <p>Description: {{ c.description }}</p>
 
-                <div>{{ c.title }}</div>
-                <div>{{ c.description }}</div>
+                    <div style="margin-bottom: 5px">
+                        <button
+                            class="btn btn-success"
+                            value="{{ c.id }}"
+                        >
+                            update
+                        </button>
+                    </div>
 
+
+                    <form
+                        action="{% url 'tasks:comments-delete' task=task.pk pk=c.pk %}"
+                        method="post"
+                    >
+                        {% csrf_token %}
+
+                        <button
+                            class="btn btn-danger"
+                            type="submit"
+                        >
+                            delete
+                        </button>
+                    </form>
+
+
+
+
+                </div>
+
+                <div id="update_comment_{{ c.id }}" class="well hide">
+
+                    <form
+                        action="{% url 'tasks:comments-update' task=task.pk pk=c.pk %}"
+                        method="post"
+                    >
+                        {% csrf_token %}
+                        <div>
+                            <div>Title:</div>
+                            <input
+                                name="title"
+                                value={{ c.title }}
+                            />
+                        </div>
+
+                        <div>
+                            <div>Description:</div>
+                            <textarea
+                                name="description"
+                                value="{{ c.description }}"
+                            >{{ c.description }}</textarea>
+                        </div>
+
+                        <button
+                            class="btn btn-success"
+                            type="submit"
+                        >
+                            save
+                        </button>
+
+                    </form>
+
+                    <button
+                        class="btn btn-inverse"
+                        value="{{ c.id }}"
+                    >
+                        cancel
+                    </button>
+
+                </div>
             {% endfor %}
 
         </div>
-
-
-
     </div>
 
 
+<script>
+    $( document ).ready(function() {
+        $( "button" ).click(function() {
+            let id = this.value;
+            $( "#comment_" + id ).toggleClass( "hide" );
+            $( "#update_comment_" + id ).toggleClass( "hide" );
+        });
+    });
+
+</script>
+
 
 {% endblock %}
+
+
