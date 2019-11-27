@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'mysite',
     'tasks',
+    'accounts',
 ]
 
 MIDDLEWARE = [

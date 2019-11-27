@@ -10,23 +10,23 @@
         </div>
 
         <div>Task name:
-            <h6>{{task.task_name}}</h6>
+            <h6>{{task.name}}</h6>
         </div>
 
         <div>Task description:
-            <h6>{{task.task_description}}</h6>
+            <h6>{{task.description}}</h6>
         </div>
 
         <div>Task date:
-            <h6>{{task.task_is_done}}</h6>
+            <h6>{{task.is_done}}</h6>
         </div>
 
         <div>Task published:
-            <h6>{{task.task_due_date}}</h6>
+            <h6>{{task.due_date}}</h6>
         </div>
 
         <div>Task done:
-            <h6>{{task.task_is_done}}</h6>
+            <h6>{{task.is_done}}</h6>
         </div>
 
         <form action="{% url 'tasks:update' pk=task.pk %}">
@@ -141,16 +141,16 @@
     </div>
 
 
-<script>
-    $( document ).ready(function() {
-        $( "button" ).click(function() {
-            let id = this.value;
-            $( "#comment_" + id ).toggleClass( "hide" );
-            $( "#update_comment_" + id ).toggleClass( "hide" );
+    <script>
+        $( document ).ready(function() {
+            $( "button" ).click(function() {
+                let id = this.value;
+                $( "#comment_" + id ).toggleClass( "hide" );
+                $( "#update_comment_" + id ).toggleClass( "hide" );
+            });
         });
-    });
 
-</script>
+    </script>
 
 
 {% endblock %}

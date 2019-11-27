@@ -16,10 +16,27 @@
 
     <div>
         {% if not form.instance.pk %}
-            <button type="submit">create this task</button>
+            <button
+                class="btn btn-success"
+                type="submit"
+            >
+                create this task
+            </button>
         {% else %}
-             <button type="submit">update this task</button>
+            <button
+                class="btn btn-success"
+                type="submit"
+            >
+                update this task
+            </button>
         {% endif %}
+
+        <button
+            onclick="location.href='/tasks/'"
+            type="button"
+            class="btn btn-inverse">
+            Cancel
+        </button>
     </div>
 
 </form>
