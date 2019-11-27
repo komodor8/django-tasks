@@ -4,9 +4,6 @@
 
 {% block body_block %}
 
-
-    <code>{{ latest_question_list }}</code>
-
     <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
     {% if latest_question_list %}
         <h2>Liste des questions</h2>
@@ -17,7 +14,7 @@
         {% endfor %}
         </ul>
     {% else %}
-        <p>No polls are available.</p>
+        <h2>No polls are available.</h2>
     {% endif %}
 
 {% endblock %}

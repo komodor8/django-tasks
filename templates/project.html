@@ -25,15 +25,34 @@
         <div class="navbar-inner">
             <a class="brand" href="/">Home</a>
             <ul class="nav">
-                <li>
-                    <a href="/admin">admin</a>
-                </li>
-                <li>
-                    <a href="{% url 'polls:index' %}">polls</a>
-                </li>
-                <li>
-                    <a href="{% url 'tasks:index' %}">tasks</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="/admin">admin</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'polls:index' %}">polls</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'tasks:index' %}">tasks</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:login' %}">accounts</a>
+                    </li>
+                    <li>
+                        <a href="#">you are connected as THE " {{user}} "</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:logout' %}">logout</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'accounts:login' %}">login to Task Machine</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:signup' %}">Join the machine task club</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
