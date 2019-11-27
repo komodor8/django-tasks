@@ -7,7 +7,7 @@
 <form method="post">
 	{% csrf_token %}
 	<input type="submit" class="btn btn-danger" value="delete">
-	<a href="{% url 'tasks:detail' pk=task.pk %}"></a>
+	<a href="{% url 'tasks:detail' pk=task.pk %}">Cancel</a>
 </form>
 
 {% endblock %}

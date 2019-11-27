@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Task
+from .models import Comment, Task
 
 
 class TaskAdmin(admin.ModelAdmin):
@@ -28,3 +28,4 @@ class TaskAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Task, TaskAdmin)
+admin.site.register(Comment)
