@@ -5,12 +5,12 @@
 
     <div style="margin-bottom: 50px">
         <h1>{{task.task_name}}</h1>
-        <div>Task number:
-            <h6>{{task.pk}}</h6>
-        </div>
-
         <div>Task name:
             <h6>{{task.name}}</h6>
+        </div>
+
+        <div>Task number:
+            <h6>{{task.pk}}</h6>
         </div>
 
         <div>Task description:
@@ -52,7 +52,7 @@
 
             <div>
                 <button class="btn btn-primary" type="submit">
-                    add comment
+                    <i class="icon-plus icon-white"></i>Add
                 </button>
             </div>
 
@@ -66,12 +66,12 @@
                     <h5>Title: {{ c.title }}</h5>
                     <p>Description: {{ c.description }}</p>
 
-                    <div style="margin-bottom: 5px">
+                    <div style="margin-bottom: 15px">
                         <button
                             class="btn btn-success"
                             value="{{ c.id }}"
                         >
-                            update
+                            <i class="icon-pencil icon-white"></i>Edit
                         </button>
                     </div>
 
@@ -86,7 +86,7 @@
                             class="btn btn-danger"
                             type="submit"
                         >
-                            delete
+                            <i class="icon-trash icon-white"></i>Delete
                         </button>
                     </form>
 
@@ -122,7 +122,7 @@
                             class="btn btn-success"
                             type="submit"
                         >
-                            save
+                            <i class="icon-ok icon-white"></i>Save
                         </button>
 
                     </form>
@@ -131,7 +131,7 @@
                         class="btn btn-inverse"
                         value="{{ c.id }}"
                     >
-                        cancel
+                        <i class="icon-remove icon-white"></i>Cancel
                     </button>
 
                 </div>

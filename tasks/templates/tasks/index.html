@@ -7,18 +7,25 @@
 
     {% for t in tasks %}
 
-        <div style="margin-bottom: 20px">
+        <div style="margin-bottom: 20px" class="well">
             <div>
-                <a href="/tasks/{{t.id}}">{{ t }}</a> créée le {{ t.pub_date }}
+                <div>
+                    <a href="/tasks/{{t.id}}">{{ t }}</a>
+                </div>
+                task number {{ t.id }}
+                <div>
+                    <p>créée par le user n* {{ t.user_id }}, le {{ t.created_at }}</p>
+                </div>
             </div>
 
+
             <div>
-                <button
-                    onclick="window.location.href='/tasks/delete/{{t.id}}'"
-                    class="btn btn-small btn-danger"
+                <a
+                    class="btn btn-mini btn-danger"
+                    href="/tasks/delete/{{t.id}}"
                 >
-                    delete
-                </button>
+                    <i class="icon-trash icon-white"></i>
+                </a>
             </div>
         </div>
 
