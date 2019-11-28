@@ -4,11 +4,13 @@ from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView
 from django.views.generic.edit import ModelFormMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
 
 
-class IndexView(TemplateView):
+class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'tasks/index.html'
     model = Task
 
@@ -18,7 +20,7 @@ class IndexView(TemplateView):
         return context
 
 
-class TaskDetailView(DetailView):
+class TaskDetailView(LoginRequiredMixin, DetailView):
     template_name = 'tasks/detail.html'
     model = Task
 
@@ -30,17 +32,17 @@ class TaskDetailView(DetailView):
         return context
 
 
-class CreateView(CreateView):
+class CreateView(LoginRequiredMixin, CreateView):
     form_class = TaskForm
     model = Task
 
 
-class UpdateView(UpdateView):
+class UpdateView(LoginRequiredMixin, UpdateView):
     form_class = TaskForm
     model = Task
 
 
-class DeleteView(DeleteView):
+class DeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     success_url = reverse_lazy('tasks:index')
 
@@ -49,7 +51,7 @@ class DeleteView(DeleteView):
 #################################################
 
 
-class CreateCommentView(ModelFormMixin, FormView):
+class CreateCommentView(LoginRequiredMixin, ModelFormMixin, FormView):
     template_name = 'tasks/detail.html'
     form_class = CommentForm
     model = Comment
