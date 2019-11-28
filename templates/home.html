@@ -1,7 +1,14 @@
 {% extends "project.html" %}
-
+{% load static %}
 
 {% block body_block %}
-    <h1>Home</h1>
+    <h1>TASK MACHINE</h1>
+
+	{% if user.is_authenticated %}
+		<h3>Welcome "{{ user }}"</h3>
+	{% else %}
+		<h3>Log in or Sign UP</h3>
+    	<img src="{% static "polls/images/DoIt.gif" %}" alt="">
+	{% endif %}
 
 {% endblock %}

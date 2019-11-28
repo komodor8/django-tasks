@@ -2,6 +2,8 @@ from django.db import models
 from django.forms import DateTimeField, ModelForm
 from django.urls import reverse
 from django.forms.widgets import DateInput
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 # Create your models here.
@@ -15,11 +17,16 @@ class Task(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     is_done = models.BooleanField(default=False)
-    due_date = models.DateTimeField('date task')
-    pub_date = models.DateTimeField('date published')
+    due_date = models.DateTimeField()
+    created_at = models.DateField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.user_id = 2
+        return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('tasks:detail', args=[str(self.id)])
@@ -32,7 +39,6 @@ class TaskForm(ModelForm):
         self.fields["name"].widget.attrs['class'] = 'bg-red'
 
     due_date = DateTimeField(widget=DateInput)
-    pub_date = DateTimeField(widget=DateInput)
 
     class Meta:
         model = Task
@@ -41,7 +47,6 @@ class TaskForm(ModelForm):
             'description',
             'is_done',
             'due_date',
-            'pub_date'
         ]
 
 

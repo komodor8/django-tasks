@@ -21,11 +21,14 @@ from . import views
 
 
 urlpatterns = [
+    # path('accounts/logout', views.LogoutView.as_view(), name='logout'),
     path('', views.HomeView.as_view(), name='home'),
     path('about', views.about),
     path('polls/', include('polls.urls')),
     path('tasks/', include('tasks.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 
