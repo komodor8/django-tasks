@@ -20,10 +20,7 @@ class TaskAdmin(admin.ModelAdmin):
         }),
         ('task_due_date', {
             'fields': ['task_due_date']
-        }),
-        ('pub_date', {
-            'fields': ['pub_date']
-        }),
+        })
     ]
 
 

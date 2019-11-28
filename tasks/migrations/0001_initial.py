@@ -19,7 +19,6 @@ class Migration(migrations.Migration):
                 ('task_description', models.CharField(max_length=200)),
                 ('task_is_done', models.BooleanField(default=False)),
                 ('task_due_date', models.DateTimeField(verbose_name='date task')),
-                ('pub_date', models.DateTimeField(verbose_name='date published')),
             ],
         ),
     ]

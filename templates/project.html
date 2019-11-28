@@ -40,14 +40,11 @@
                         <a href="{% url 'accounts:login' %}">accounts</a>
                     </li>
                     <li>
-                        <a href="#">you are connected as THE " {{user}} "</a>
-                    </li>
-                    <li>
                         <a href="{% url 'accounts:logout' %}">logout</a>
                     </li>
                 {% else %}
                     <li>
-                        <a href="{% url 'accounts:login' %}">login to Task Machine</a>
+                        <a href="{% url 'accounts:login' %}">login</a>
                     </li>
                     <li>
                         <a href="{% url 'accounts:signup' %}">Join the machine task club</a>

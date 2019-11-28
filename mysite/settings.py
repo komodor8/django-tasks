@@ -140,10 +140,19 @@ STATICFILES_DIRS = [
 ]
 
 
+# Auth
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+
+# Debugtrace
+
 import django.views.debug as debug, inspect, pdb, signal
 
 if any('/pdb.py' in f[1] for f in inspect.stack()):
-    def handler(*args): pdb.set_trace()
+    def handler(*args):
+        pdb.set_trace()
     signal.signal(signal.SIGQUIT, handler)
     r = debug.technical_500_response
     debug.technical_500_response = lambda *k: pdb.post_mortem(k[3]) or r(*k)

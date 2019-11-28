@@ -21,6 +21,7 @@ from . import views
 
 
 urlpatterns = [
+    # path('accounts/logout', views.LogoutView.as_view(), name='logout'),
     path('', views.HomeView.as_view(), name='home'),
     path('about', views.about),
     path('polls/', include('polls.urls')),
