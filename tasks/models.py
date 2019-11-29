@@ -24,10 +24,6 @@ class Task(models.Model):
     def __str__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
-        self.user_id = User.id
-        return super().save(*args, **kwargs)
-
     def get_absolute_url(self):
         return reverse('tasks:detail', args=[str(self.id)])
 

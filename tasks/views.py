@@ -1,11 +1,10 @@
-from django.views.generic import CreateView, TemplateView, UpdateView, FormView, ListView
+from django.views.generic import CreateView, UpdateView, FormView, ListView
 from .models import Task, TaskForm, Comment, CommentForm
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView
 from django.views.generic.edit import ModelFormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import get_user_model
 
 
 # Create your views here.
@@ -26,7 +25,6 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tasks'] = Task.objects.all()
         form = CommentForm()
         context['comment_form'] = form
         return context
@@ -35,6 +33,12 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
 class CreateView(LoginRequiredMixin, CreateView):
     form_class = TaskForm
     model = Task
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 
 class UpdateView(LoginRequiredMixin, UpdateView):
@@ -57,8 +61,17 @@ class CreateCommentView(LoginRequiredMixin, ModelFormMixin, FormView):
     model = Comment
 
     def form_valid(self, form):
-        form.instance.task_id = self.kwargs['task']
-        return super().form_valid(form)
+        self.object = form.save(commit=False)
+
+        try:
+            # print(self.object.task)
+            print(self.kwargs['task'])
+        except:
+            print("An exception occurred")
+        finally:
+            self.object.task_id = self.kwargs['task']
+            self.object.save()
+            return super().form_valid(form)
 
     def get_success_url(self):
         task_id = self.kwargs['task']
