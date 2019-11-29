@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView
 from django.views.generic.edit import ModelFormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 
 # Create your views here.
@@ -41,6 +42,7 @@ class CreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+
 class UpdateView(LoginRequiredMixin, UpdateView):
     form_class = TaskForm
     model = Task
@@ -62,16 +64,16 @@ class CreateCommentView(LoginRequiredMixin, ModelFormMixin, FormView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
+        self.object.task_id = self.kwargs['task']
 
         try:
-            # print(self.object.task)
-            print(self.kwargs['task'])
-        except:
-            print("An exception occurred")
-        finally:
-            self.object.task_id = self.kwargs['task']
             self.object.save()
-            return super().form_valid(form)
+            messages.success(self.request, 'comment sent')
+        except:
+            messages.warning(self.request, 'comment not sent')
+
+
+        return super().form_valid(form)
 
     def get_success_url(self):
         task_id = self.kwargs['task']
