@@ -5,7 +5,7 @@
 
     <h1>Liste des tâches</h1>
 
-    {% for t in tasks %}
+    {% for t in object_list %}
 
         <div style="margin-bottom: 20px" class="well">
             <div>
@@ -14,7 +14,7 @@
                 </div>
                 task number {{ t.id }}
                 <div>
-                    <p>créée par le user n* {{ t.user_id }}, le {{ t.created_at }}</p>
+                    <p>créée par le user n* {{ t.user.username }}, le {{ t.created_at }}</p>
                 </div>
             </div>
 

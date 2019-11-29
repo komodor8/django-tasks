@@ -1,23 +1,23 @@
-from django.views.generic import CreateView, TemplateView, UpdateView, FormView
+from django.views.generic import CreateView, TemplateView, UpdateView, FormView, ListView
 from .models import Task, TaskForm, Comment, CommentForm
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView
 from django.views.generic.edit import ModelFormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import get_user_model
 
 
 # Create your views here.
 
 
-class IndexView(LoginRequiredMixin, TemplateView):
+class IndexView(LoginRequiredMixin, ListView):
     template_name = 'tasks/index.html'
     model = Task
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tasks'] = Task.objects.all()
-        return context
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user_id=self.request.user.id).prefetch_related('user')
 
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
