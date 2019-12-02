@@ -3,6 +3,8 @@
 
 {% block body_block %}
 
+    {% include "messages.html" with messages=messages %}
+
     <h1>Liste des tâches</h1>
 
     {% for t in object_list %}
