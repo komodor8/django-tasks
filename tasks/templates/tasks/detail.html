@@ -3,13 +3,7 @@
 
 {% block body_block %}
 
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    {% include "messages.html" with message=message %}
 
     <div style="margin-bottom: 50px">
         <h1>{{task.task_name}}</h1>
@@ -162,9 +156,13 @@
     <script>
         $( document ).ready(function() {
             $( "button" ).click(function() {
-                let id = this.value;
-                $( "#comment_" + id ).toggleClass( "hide" );
-                $( "#update_comment_" + id ).toggleClass( "hide" );
+                if (this.value !== '') {
+                    console.log('button is hit');
+                    let id = this.value;
+                    $( "#comment_" + id ).toggleClass( "hide" );
+                    $( "#update_comment_" + id ).toggleClass( "hide" );
+                }
+
             });
         });
 

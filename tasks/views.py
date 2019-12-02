@@ -68,10 +68,9 @@ class CreateCommentView(LoginRequiredMixin, ModelFormMixin, FormView):
 
         try:
             self.object.save()
-            messages.success(self.request, 'comment sent')
+            messages.success(self.request, 'Great ! Your comment has been added.')
         except:
-            messages.warning(self.request, 'comment not sent')
-
+            messages.warning(self.request, 'Oups ! Your comment hasn\'t been added.')
 
         return super().form_valid(form)
 
@@ -85,6 +84,11 @@ class DeleteCommentView(DeleteView):
 
     def get_success_url(self):
         task_id = self.kwargs['task']
+        try:
+            messages.success(self.request, 'Comment deleted.')
+        except:
+            messages.warning(self.request, 'Oups ! Your comment hasn\'t been deleted.')
+
         return str(reverse_lazy('tasks:detail', kwargs={'pk': task_id}))
 
 
