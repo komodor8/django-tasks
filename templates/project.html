@@ -5,6 +5,9 @@
     <title>Home</title>
     {% load static %}
      <!-- Latest compiled and minified CSS -->
+     <link
+        rel="stylesheet"
+        href="{% static "bootstrap/css/main.css" %}">
     <link
         rel="stylesheet"
         href="{% static "bootstrap/css/bootstrap.min.css" %}">
@@ -13,10 +16,13 @@
         href="{% static "bootstrap/css/bootstrap-responsive.min.css" %}">
 
     <!-- compiled JavaScript -->
-    {# <script type="text/javascript" src="{% static "bootstrap/js/bootstrap.min.js" %}"></script> #}
+     <!-- <script type="text/javascript" src="{% static "bootstrap/js/bootstrap.min.js" %}"></script> -->
 
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link
+        rel="application/javascript"
+        href="{% static "bootstrap/css/bootstrap-alerts.js" %}">
 
 </head>
 <body>
@@ -37,7 +43,7 @@
                         <a href="{% url 'tasks:index' %}">tasks</a>
                     </li>
                     <li>
-                        <a href="{% url 'accounts:login' %}">accounts</a>
+                        <a href="#">Hello {{ user }}</a>
                     </li>
                     <li>
                         <a href="{% url 'accounts:logout' %}">logout</a>
@@ -62,6 +68,12 @@
         {% endblock %}
     </div>
 
-
+    <script>
+    $( document ).ready(function() {
+        $('.close').click(function(){
+            $(".alert").css("display", "none");
+        });
+    });
+    </script>
 </body>
 </html>

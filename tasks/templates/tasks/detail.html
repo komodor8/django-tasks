@@ -3,14 +3,16 @@
 
 {% block body_block %}
 
+    {% include "messages.html" with messages=messages %}
+
     <div style="margin-bottom: 50px">
         <h1>{{task.task_name}}</h1>
-        <div>Task number:
-            <h6>{{task.pk}}</h6>
-        </div>
-
         <div>Task name:
             <h6>{{task.name}}</h6>
+        </div>
+
+        <div>Task number:
+            <h6>{{task.id}}</h6>
         </div>
 
         <div>Task description:
@@ -45,14 +47,21 @@
         <h2>Comments</h2>
         <h3>Add a comment</h3>
 
-        <form action="{% url 'tasks:comments-create' task=task.pk %}"  method="post">
+        <form
+            action="{% url 'tasks:comments-create' task=task.pk %}"
+            method="post"
+        >
             {% csrf_token %}
 
             {{ comment_form }}
 
             <div>
-                <button class="btn btn-primary" type="submit">
-                    add comment
+                <button
+                    class="btn btn-primary"
+                    type="submit"
+                >
+                    <i class="icon-plus icon-white"></i>
+                    Add
                 </button>
             </div>
 
@@ -62,16 +71,20 @@
             <h4>List of comments</h4>
 
             {% for c in task.comment_set.all %}
-                <div id="comment_{{ c.id }}" class="well">
+                <div
+                    id="comment_{{ c.id }}"
+                    class="well"
+                >
                     <h5>Title: {{ c.title }}</h5>
                     <p>Description: {{ c.description }}</p>
 
-                    <div style="margin-bottom: 5px">
+                    <div style="margin-bottom: 15px">
                         <button
                             class="btn btn-success"
                             value="{{ c.id }}"
                         >
-                            update
+                            <i class="icon-pencil icon-white"></i>
+                            Edit
                         </button>
                     </div>
 
@@ -86,14 +99,11 @@
                             class="btn btn-danger"
                             type="submit"
                         >
-                            delete
+                            <i class="icon-trash icon-white"></i>Delete
                         </button>
                     </form>
-
-
-
-
                 </div>
+
 
                 <div id="update_comment_{{ c.id }}" class="well hide">
 
@@ -122,7 +132,8 @@
                             class="btn btn-success"
                             type="submit"
                         >
-                            save
+                            <i class="icon-ok icon-white"></i>
+                            Save
                         </button>
 
                     </form>
@@ -131,7 +142,8 @@
                         class="btn btn-inverse"
                         value="{{ c.id }}"
                     >
-                        cancel
+                        <i class="icon-remove icon-white"></i>
+                        Cancel
                     </button>
 
                 </div>
@@ -143,10 +155,12 @@
 
     <script>
         $( document ).ready(function() {
-            $( "button" ).click(function() {
-                let id = this.value;
-                $( "#comment_" + id ).toggleClass( "hide" );
-                $( "#update_comment_" + id ).toggleClass( "hide" );
+            $("button").click(function() {
+                if (this.value !== '') {
+                    let id = this.value;
+                    $( "#comment_" + id ).toggleClass( "hide" );
+                    $( "#update_comment_" + id ).toggleClass( "hide" );
+                }
             });
         });
 

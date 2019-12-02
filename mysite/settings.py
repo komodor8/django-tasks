@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # debug_toolbar have to be loaded right after loaded staticfiles for performance
     'debug_toolbar',
     'mysite',
     'tasks',
