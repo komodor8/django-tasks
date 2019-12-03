@@ -11,8 +11,8 @@ class UserCreateForm(UserCreationForm):
 
     def __init__(self, *arg, **kwargs):
         super().__init__(*arg, **kwargs)
-        self.fields['username'].label = 'Create Name'
-        self.fields['email'].label = 'Give Email Address'
+        self.fields['username'].label = 'Create your Name'
+        self.fields['email'].label = 'Give your Email Address'
 
 
 class UpdateUserForm(ModelForm):

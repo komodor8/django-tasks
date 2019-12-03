@@ -2,47 +2,50 @@
 
 
 {% block body_block %}
+
+{% include "messages.html" with messages=messages %}
+
 <div class="well">
 	<div>
 		<h2 style="margin-bottom : 50px">My profile</h2>
 		<div>
-			name
+			Name:
 		</div>
 		<span><strong>{{ user }}</strong></span>
 	</div>
 	<div>
 		<div>
-			first name
+			First name:
 		</div>
 		<span><strong>{{ user.first_name }}</strong></span>
 	</div>
 	<div>
 		<div>
-			last name
+			Last name:
 		</div>
 		<span><strong>{{ user.last_name }}</strong></span>
 	</div>
 	<div>
 		<div>
-			am I staff ?
+			Am I staff ?
 		</div>
 		<span><strong>{{ user.is_staff }}</strong></span>
 	</div>
 	<div>
 		<div>
-			am I active ?
+			Am I active ?
 		</div>
 		<span><strong>{{ user.is_active }}</strong></span>
 	</div>
 	<div>
 		<div>
-			email
+			Email:
 		</div>
 		<span><strong>{{ user.email }}</strong></span>
 	</div>
 	<div>
 		<div>
-			subscription date
+			Subscription date:
 		</div>
 		<span><strong>{{ user.date_joined }}</strong></span>
 	</div>
@@ -53,7 +56,7 @@
 		class="btn btn btn-primary"
 		href="/accounts/profile/{{ user.pk }}/update"
 	>
-		update my info
+		Update my profile
 	</a>
 </div>
 

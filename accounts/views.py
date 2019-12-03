@@ -4,6 +4,7 @@ from django.views.generic import CreateView, DetailView, UpdateView
 from . import forms
 from .models import User
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 
 
 # Create your views here.
@@ -26,4 +27,5 @@ class UserUpdateView(UpdateView):
     form_class = forms.UpdateUserForm
 
     def get_success_url(self):
+        messages.success(self.request, 'Your profile has been updated.')
         return str(reverse_lazy('accounts:profile', kwargs=self.kwargs))
