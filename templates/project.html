@@ -29,28 +29,27 @@
 
     <div class="navbar">
         <div class="navbar-inner">
-            <a class="brand" href="/">Home</a>
+            <a class="brand" href="/">{{ user }}'s Home</a>
             <ul class="nav">
                 {% if user.is_authenticated %}
                     <li>
-                        <a href="/admin">admin</a>
+                        <a href="/admin">Admin</a>
                     </li>
                     <li>
-                        <a href="{% url 'polls:index' %}">polls</a>
-                    </li>
-
-                    <li>
-                        <a href="{% url 'tasks:index' %}">tasks</a>
+                        <a href="{% url 'accounts:profile' pk=user.pk %}">My profile</a>
                     </li>
                     <li>
-                        <a href="#">Hello {{ user }}</a>
+                        <a href="{% url 'tasks:index' %}">Tasks</a>
                     </li>
                     <li>
-                        <a href="{% url 'accounts:logout' %}">logout</a>
+                        <a href="{% url 'polls:index' %}">Polls</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:logout' %}">Logout</a>
                     </li>
                 {% else %}
                     <li>
-                        <a href="{% url 'accounts:login' %}">login</a>
+                        <a href="{% url 'accounts:login' %}">Login</a>
                     </li>
                     <li>
                         <a href="{% url 'accounts:signup' %}">Join the machine task club</a>
