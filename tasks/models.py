@@ -20,6 +20,7 @@ class Task(models.Model):
     due_date = models.DateTimeField()
     created_at = models.DateField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    invited = models.ManyToManyField(User, related_name='invited_user')
 
     def __str__(self):
         return self.name
@@ -46,6 +47,15 @@ class TaskForm(ModelForm):
         ]
 
 
+class TaskShareForm(ModelForm):
+
+    class Meta:
+        model = Task
+        fields = [
+            'invited'
+        ]
+
+
 class Comment(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=250)
@@ -63,3 +73,7 @@ class CommentForm(ModelForm):
             'title',
             'description'
         ]
+
+
+#####################################################
+#####################################################
