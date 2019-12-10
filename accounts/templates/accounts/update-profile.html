@@ -2,22 +2,22 @@
 
 
 {% block body_block %}
-	<div class="well">
-		<h1>Update profile</h1>
+    <div class="well">
+        <h1>Update profile</h1>
 
-		<form method="POST">
-	        {% csrf_token %}
-	        {{ form }}
-	        <div>
-	        	<input
-	        		type="submit"
-	        		class="btn btn-success"
-	        		value="saves"
-	        	>
-	        </div>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <div>
+                <input
+                    type="submit"
+                    class="btn btn-success"
+                    value="saves"
+                >
+            </div>
 
-	    </form>
-	</div>
+        </form>
+    </div>
 
 
 {% endblock %}

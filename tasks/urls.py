@@ -5,11 +5,12 @@ from . import views
 app_name = 'tasks'
 
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='index'),
-    path('create/', views.CreateView.as_view(), name='create'),
-    path('<int:pk>/', views.TaskDetailView.as_view(), name='detail'),
-    path('<int:pk>/update/', views.UpdateView.as_view(), name='update'),
-    path('<int:pk>/delete/', views.DeleteView.as_view(), name='delete'),
+    path('', views.IndexTaskView.as_view(), name='index'),
+    path('create/', views.CreateTaskView.as_view(), name='create'),
+    path('<int:pk>/', views.DetailTaskView.as_view(), name='detail'),
+    path('<int:pk>/update/', views.UpdateTaskView.as_view(), name='update'),
+    path('<int:pk>/delete/', views.DeleteTaskView.as_view(), name='delete'),
+    path('<int:pk>/share/', views.ShareTaskView.as_view(), name='share'),
     path(
         '<int:task>/comments/create/',
         views.CreateCommentView.as_view(),

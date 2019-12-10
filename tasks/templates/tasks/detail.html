@@ -3,10 +3,16 @@
 
 {% block body_block %}
 
+    {% if not perms.tasks.add_comment %}
+        <div style="margin-bottom: 15px">
+            <span class="label label-info"> Little reminder to you {{ user }}! You don't have the right permission to add a comment</span>
+        </div>
+    {% endif %}
+
     {% include "messages.html" with messages=messages %}
 
-    <div style="margin-bottom: 50px">
-        <h1>{{task.task_name}}</h1>
+    <div class="well" style="margin-bottom: 50px">
+        <h3>{{task.name}}</h3>
         <div>Task name:
             <h6>{{task.name}}</h6>
         </div>
@@ -41,6 +47,46 @@
 
         </form>
 
+    </div>
+
+    <div class="well">
+        <h3>Shared users</h3>
+        <form
+            action="{% url 'tasks:share' pk=task.pk %}"
+            method="POST"
+        >
+            {% csrf_token %}
+            <label for="list-users">Who do you want to share this task with ?</label>
+            <select
+                class="js-example-basic-multiple"
+                name="invited"
+                multiple="multiple"
+            >
+                {% for u in users %}
+                    <option value="{{u.id}}">{{ u.username }}</option>
+                {% endfor %}
+            </select>
+            <div>
+                <button
+                    class="btn btn-success"
+                    type="submit"
+                >
+                    Share
+                </button>
+            </div>
+
+        </form>
+        <h3>List of users I have shared this task with</h3>
+        <div>
+            {% if invited_user %}
+            <ul>
+                {% for iu in invited_user %}
+                    {{ iu }}
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+        </div>
     </div>
 
     <div>
@@ -152,9 +198,10 @@
         </div>
     </div>
 
-
     <script>
+
         $( document ).ready(function() {
+
             $("button").click(function() {
                 if (this.value !== '') {
                     let id = this.value;
@@ -162,6 +209,7 @@
                     $( "#update_comment_" + id ).toggleClass( "hide" );
                 }
             });
+
         });
 
     </script>
