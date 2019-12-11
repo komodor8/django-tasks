@@ -56,17 +56,10 @@
             method="POST"
         >
             {% csrf_token %}
-            <label for="list-users">Who do you want to share this task with ?</label>
-            <select
-                class="js-example-basic-multiple"
-                name="invited"
-                multiple="multiple"
-            >
-                {% for u in users %}
-                    <option value="{{u.id}}">{{ u.username }}</option>
-                {% endfor %}
-            </select>
-            <div>
+
+            {{ invited_users_form }}
+
+            <div style="margin-top: 20px">
                 <button
                     class="btn btn-success"
                     type="submit"
@@ -76,16 +69,34 @@
             </div>
 
         </form>
-        <h3>List of users I have shared this task with</h3>
-        <div>
-            {% if invited_user %}
-            <ul>
-                {% for iu in invited_user %}
-                    {{ iu }}
-                {% endfor %}
-            </ul>
-            {% endif %}
 
+        <div>
+            <h5>List of users I have shared this task with</h5>
+            {% if invited_users %}
+                <table class="table table-condensed">
+                  <thead>
+                      <tr>
+                          <td><strong>First name</strong></td>
+                          <td><strong>Last name</strong></td>
+                          <td><strong>Username</strong></td>
+                          <td><strong>ID</strong></td>
+                          <td><strong>Group of Permissions</strong></td>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% for iu in invited_users %}
+                        <tr>
+                            <td>{{ iu.first_name }}</td>
+                            <td>{{ iu.last_name }}</td>
+                            <td>{{ iu.username }}</td>
+                            <td>{{ iu.id }}</td>
+                            <td>{{ user.user_permission }}</td>
+                        </tr>
+                    {% endfor %}
+
+                  </tbody>
+                </table>
+            {% endif %}
         </div>
     </div>
 
@@ -201,6 +212,8 @@
     <script>
 
         $( document ).ready(function() {
+            // add the class "select2-hidden-accessible" to the select element
+            $('.js-example-basic-multiple').select2();
 
             $("button").click(function() {
                 if (this.value !== '') {

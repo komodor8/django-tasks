@@ -34,6 +34,8 @@ class DetailTaskView(LoginRequiredMixin, DetailView):
         form = CommentForm()
         context['comment_form'] = form
         context['users'] = User.objects.all()
+        context['invited_users'] = self.object.invited.all()
+        context['invited_users_form'] = TaskShareForm(instance=self.object)
         return context
 
 

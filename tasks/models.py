@@ -1,7 +1,7 @@
 from django.db import models
 from django.forms import DateTimeField, ModelForm
 from django.urls import reverse
-from django.forms.widgets import DateInput
+from django.forms.widgets import DateInput, TextInput
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -49,11 +49,18 @@ class TaskForm(ModelForm):
 
 class TaskShareForm(ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["invited"].widget.attrs['class'] = 'js-example-basic-multiple'
+
     class Meta:
         model = Task
         fields = [
             'invited'
         ]
+        labels = {
+            'invited': 'Who do you want to share this task with ?',
+        }
 
 
 class Comment(models.Model):
@@ -77,3 +84,23 @@ class CommentForm(ModelForm):
 
 #####################################################
 #####################################################
+
+
+# <tr>
+    # <th>
+        # <label for="id_invited">Invited:</label>
+    # </th>
+    # <td>
+        # <select
+        # name="invited"
+        # required
+        # id="id_invited"
+        # multiple>
+        #   <option value="1">JESUS</option>
+        #   <option value="2" selected>JCVD</option>
+        #   <option value="3" selected>Rambo</option>
+        #   <option value="4" selected>spiderman</option>
+        #   <option value="5">batman</option>
+        # </select>
+    # </td>
+# </tr>
