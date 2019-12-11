@@ -4,6 +4,7 @@
 
 tasks/__pycache__/models.cpython-36.pyc
 tasks/__pycache__/views.cpython-36.pyc
+tasks/__pycache__/
 
 
 db.sqlite3
