@@ -1,8 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.forms import DateTimeField, ModelForm
-from django.urls import reverse
 from django.forms.widgets import DateInput, TextInput
-from django.contrib.auth import get_user_model
+from django.urls import reverse
+from django.utils import timezone
+
 User = get_user_model()
 
 
@@ -14,13 +16,13 @@ class DateInput(DateInput):
 
 
 class Task(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
-    is_done = models.BooleanField(default=False)
-    due_date = models.DateTimeField()
     created_at = models.DateField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=200)
+    due_date = models.DateTimeField(default=timezone.now)
     invited = models.ManyToManyField(User, related_name='invited_user')
+    is_done = models.BooleanField(default=False)
+    name = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -84,23 +86,3 @@ class CommentForm(ModelForm):
 
 #####################################################
 #####################################################
-
-
-# <tr>
-    # <th>
-        # <label for="id_invited">Invited:</label>
-    # </th>
-    # <td>
-        # <select
-        # name="invited"
-        # required
-        # id="id_invited"
-        # multiple>
-        #   <option value="1">JESUS</option>
-        #   <option value="2" selected>JCVD</option>
-        #   <option value="3" selected>Rambo</option>
-        #   <option value="4" selected>spiderman</option>
-        #   <option value="5">batman</option>
-        # </select>
-    # </td>
-# </tr>
