@@ -1,8 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.forms import DateTimeField, ModelForm
+from django.forms.widgets import DateInput, TextInput
 from django.urls import reverse
-from django.forms.widgets import DateInput
-from django.contrib.auth import get_user_model
+from django.utils import timezone
+
 User = get_user_model()
 
 
@@ -14,13 +16,13 @@ class DateInput(DateInput):
 
 
 class Task(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
-    is_done = models.BooleanField(default=False)
-    due_date = models.DateTimeField()
     created_at = models.DateField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=200)
+    due_date = models.DateTimeField(default=timezone.now)
     invited = models.ManyToManyField(User, related_name='invited_user')
+    is_done = models.BooleanField(default=False)
+    name = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -49,11 +51,18 @@ class TaskForm(ModelForm):
 
 class TaskShareForm(ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["invited"].widget.attrs['class'] = 'js-example-basic-multiple'
+
     class Meta:
         model = Task
         fields = [
             'invited'
         ]
+        labels = {
+            'invited': 'Who do you want to share this task with ?',
+        }
 
 
 class Comment(models.Model):

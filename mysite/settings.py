@@ -85,12 +85,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'faridTestDB',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'tasks_db',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '10.10.231.83',
+        'PORT': '5432',
     }
 }
 
