@@ -1,11 +1,17 @@
 from django.urls import path
+from .filters import TaskFilter
+from django_filters.views import FilterView
 
 from . import views
 
 app_name = 'tasks'
 
 urlpatterns = [
-    path('', views.IndexTaskView.as_view(), name='index'),
+    path(
+        '',
+        FilterView.as_view(filterset_class=TaskFilter, template_name='tasks/index.html'),
+        name='index'
+    ),
     path('create/', views.CreateTaskView.as_view(), name='create'),
     path('<int:pk>/', views.DetailTaskView.as_view(), name='detail'),
     path('<int:pk>/update/', views.UpdateTaskView.as_view(), name='update'),
