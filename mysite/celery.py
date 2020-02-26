@@ -28,6 +28,7 @@ def debug_task(self):
 def add(x, y):
     return x + y
 
+
 @app.task
 def error():
     raise ValueError('oops!')
