@@ -1,12 +1,12 @@
 from .models import Task, TaskForm, Comment, CommentForm, TaskShareForm
-from datetime import datetime
+from .filters import TaskFilter
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, FormView, ListView, View
+from django.views.generic import CreateView, UpdateView, FormView, ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
 from django.views.generic.edit import ModelFormMixin

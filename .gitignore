@@ -4,8 +4,17 @@
 
 tasks/__pycache__/models.cpython-36.pyc
 tasks/__pycache__/views.cpython-36.pyc
-tasks/__pycache__/
+tasks/__pycache__
 
+
+*.pyc
+*/__pycache__
+
+**/accounts/__pycache__
+**/mysite/__pycache__
+**/__pycache__
+
+# ignore all pyc
 *.pyc
 
 db.sqlite3

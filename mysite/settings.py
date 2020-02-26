@@ -30,6 +30,10 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
+CELERY_RESULT_BACKEND = 'django-db'
+
+# CELERY_CACHE_BACKEND = 'django-cache'
+
 
 # Application definition
 
@@ -41,11 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     # debug_toolbar have to be loaded right after loaded staticfiles for performance
     'debug_toolbar',
     'mysite',
     'tasks',
     'accounts',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [

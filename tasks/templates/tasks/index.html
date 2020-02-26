@@ -7,6 +7,19 @@
 
     <h1>Liste des tâches</h1>
 
+    <h3>filter</h3>
+
+    <form method="get">
+        {{ filter.form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    <ul>
+        {% for task in filter.qs %}
+            <li>{{ task.name }} - {{ task.description }}</li>
+        {% endfor %}
+    </ul>
+
     {% for t in object_list %}
 
         <div style="margin-bottom: 20px" class="well">
