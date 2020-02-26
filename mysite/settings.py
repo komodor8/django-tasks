@@ -30,6 +30,10 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
+CELERY_RESULT_BACKEND = 'django-db'
+
+# CELERY_CACHE_BACKEND = 'django-cache'
+
 
 # Application definition
 
@@ -47,6 +51,7 @@ INSTALLED_APPS = [
     'mysite',
     'tasks',
     'accounts',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
