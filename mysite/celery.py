@@ -2,7 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 import os
 
-from celery import Celery
+from celery import Celery, shared_task
+
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
@@ -24,7 +25,7 @@ def debug_task(self):
     print('Request: {0!r}'.format(self.request))
 
 
-@app.task
+@shared_task
 def add(x, y):
     return x + y
 
@@ -46,7 +47,7 @@ def xsum(numbers):
 
 '''
 launch Celery
-celery worker -A mysite -l info -E --concurrency=1000
+celery worker -A mysite -l info -E
 
 
 Launch the server and open the dashboard http://localhost:5555

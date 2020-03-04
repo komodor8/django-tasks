@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+from celery import Celery, shared_task
+from mysite import celery
 
 from .models import Choice, Question
 
@@ -24,6 +26,21 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+
+
+class CeleryTaskIndexView(generic.View):
+    http_method_names = ['post']
+
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+        print('__init__')
+
+    def post(self, request):
+        celery.mul.delay(1, 2)
+        return HttpResponseRedirect(
+            reverse('polls:results', args=(1,))
+        )
 
 
 def vote(request, question_id):

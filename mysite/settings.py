@@ -12,9 +12,15 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+import sentry_sdk
+
+from sentry_sdk.integrations.django import DjangoIntegration
+
+from sentry_sdk.integrations.celery import CeleryIntegration
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 
 # Quick-start development settings - unsuitable for production
@@ -34,6 +40,15 @@ CELERY_RESULT_BACKEND = 'django-db'
 
 # CELERY_CACHE_BACKEND = 'django-cache'
 
+
+sentry_sdk.init(
+    dsn="http://728271198da54df58a5a47310350a65a@sentry.safehost.com/4",
+    integrations=[DjangoIntegration(), CeleryIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
 
 # Application definition
 

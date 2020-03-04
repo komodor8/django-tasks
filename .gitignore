@@ -9,5 +9,6 @@
 
 # ignore all pyc
 *.pyc
+**.pyc
 
 db.sqlite3
